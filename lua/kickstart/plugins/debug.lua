@@ -80,6 +80,9 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    local dap_go = require 'dap-go'
+
+    dap_go.setup()
 
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with

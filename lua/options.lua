@@ -15,12 +15,32 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+local function is_wsl()
+  local wsl_file = '/proc/sys/fs/binfmt_misc/WSLInterop'
+  return vim.fn.has 'unix' == 1 and vim.fn.filereadable(wsl_file) == 1
+end
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
+
+  if is_wsl() then
+    vim.g.clipboard = {
+      name = 'WslClipboard',
+      copy = {
+        ['+'] = 'clip.exe',
+        ['*'] = 'clip.exe',
+      },
+      paste = {
+        ['+'] = "powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace('', ''))",
+        ['*'] = "powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace('', ''))",
+      },
+      cache_enabled = 0,
+    }
+  end
 end)
 
 -- Enable break indent
@@ -50,7 +70,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '· ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -60,5 +80,10 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.relativenumber = true
 
 -- vim: ts=2 sts=2 sw=2 et
