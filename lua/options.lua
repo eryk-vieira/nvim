@@ -15,6 +15,8 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+vim.opt.termguicolors = true
+
 local function is_wsl()
   local wsl_file = '/proc/sys/fs/binfmt_misc/WSLInterop'
   return vim.fn.has 'unix' == 1 and vim.fn.filereadable(wsl_file) == 1

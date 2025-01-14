@@ -1,8 +1,10 @@
 return {
-  'rebelot/kanagawa.nvim',
-  'catppuccin/nvim',
-  'mhartington/oceanic-next',
-  'andersevenrud/nordic.nvim',
+  {
+    'catppuccin/nvim',
+    config = function()
+      vim.o.background = 'light'
+    end,
+  },
   {
     'comfysage/evergarden',
     opts = {
@@ -15,15 +17,23 @@ return {
     'zaldih/themery.nvim',
     opts = {
       themes = {
-        'kanagawa-wave',
         'catppuccin-latte',
-        'catppuccin-macchiato',
-        'catppuccin-mocha',
         'evergarden',
-        'OceanicNext',
-        'nordic'
       },
     },
   },
+  {
+    dir = '~/projects/eryk-vieira/nvim/auto-dark-mode.nvim-master',
+    opts = {
+      update_interval = 1000,
+      set_dark_mode = function()
+        vim.api.nvim_set_option_value('background', 'dark', {})
+        vim.cmd 'colorscheme evergarden'
+      end,
+      set_light_mode = function()
+        vim.api.nvim_set_option_value('background', 'light', {})
+        vim.cmd 'colorscheme catppuccin-latte'
+      end,
+    },
+  },
 }
-
