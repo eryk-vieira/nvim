@@ -122,7 +122,7 @@ return {
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
           map('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-          -- The following two autocommands are used to highlight references of the
+          -- The following two autocommands are used to highlight references of theGo to
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
           --
@@ -191,6 +191,28 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
+
+        -- html = {
+        --   filetypes = { 'html', 'templ' },
+        -- },
+        emmet_ls = {
+          capabilities = capabilities,
+          filetypes = { 'html', 'templ' },
+        },
+        templ = {
+          capabilities = capabilities,
+        },
+        tailwindcss = {
+          capabilities = capabilities,
+          filetypes = { 'templ', 'astro', 'javascript', 'typescript', 'react' },
+          settings = {
+            tailwindCSS = {
+              includeLanguages = {
+                templ = 'html',
+              },
+            },
+          },
+        },
         gopls = {
           capabilities = capabilities,
           settings = {
@@ -202,6 +224,10 @@ return {
               },
             },
           },
+        },
+        pyright = {
+          capabilities = capabilities,
+          filetypes = { 'python' },
         },
         -- pyright = {},
         -- rust_analyzer = {},

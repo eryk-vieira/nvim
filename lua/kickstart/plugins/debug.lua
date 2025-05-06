@@ -82,6 +82,16 @@ return {
     local dapui = require 'dapui'
     local dap_go = require 'dap-go'
 
+    dap.configurations.go = {
+      {
+        type = 'delve',
+        name = 'file',
+        request = 'launch',
+        program = '${file}',
+        outputMode = 'remote',
+      },
+    }
+
     dap_go.setup()
 
     require('mason-nvim-dap').setup {

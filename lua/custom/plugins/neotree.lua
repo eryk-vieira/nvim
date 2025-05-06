@@ -34,6 +34,9 @@ return {
       --           return a.type > b.type
       --       end
       --   end , -- this sorts files and directories descendantly
+      update_focused_file = {
+        enable = true,
+      },
       default_component_configs = {
         container = {
           enable_character_fade = true,
@@ -196,7 +199,7 @@ return {
           },
         },
         follow_current_file = {
-          enabled = false, -- This will find and focus the file in the active buffer every time
+          enabled = true, -- This will find and focus the file in the active buffer every time
           --               -- the current file is changed while the tree is open.
           leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
         },
@@ -282,6 +285,16 @@ return {
             ['os'] = { 'order_by_size', nowait = false },
             ['ot'] = { 'order_by_type', nowait = false },
           },
+        },
+      },
+      event_handlers = {
+        {
+          event = 'neo_tree_popup_input_ready',
+          ---@param args { bufnr: integer, winid: integer }
+          handler = function(args)
+            vim.cmd 'stopinsert'
+            vim.keymap.set('i', '<esc>', vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
+          end,
         },
       },
     }

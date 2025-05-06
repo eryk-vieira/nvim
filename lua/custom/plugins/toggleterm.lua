@@ -33,6 +33,9 @@ return {
       local DockerTerminal = require('toggleterm.terminal').Terminal
       local lazydocker = DockerTerminal:new { cmd = 'lazydocker', hidden = true, direction = 'float' }
 
+      local BtopTerminal = require('toggleterm.terminal').Terminal
+      local btop = BtopTerminal:new { cmd = 'btop', hidden = true, direction = 'float' }
+
       local float_handler = function(term)
         vim.cmd 'startinsert!'
         if vim.fn.mapcheck('jk', 't') ~= '' then
@@ -53,9 +56,15 @@ return {
         float_handler(lazydocker)
       end
 
+      function _btop_toggle()
+        btop:toggle()
+
+        float_handler(btop)
+      end
+
       vim.api.nvim_set_keymap('n', '<leader>lg', '<cmd>lua _lazygit_toggle()<CR>', { noremap = true, silent = true })
       vim.api.nvim_set_keymap('n', '<leader>ld', '<cmd>lua _lazydocker_toggle()<CR>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>lb', '<cmd>lua _btop_toggle()<CR>', { noremap = true, silent = true })
     end,
   },
 }
-
