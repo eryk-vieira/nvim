@@ -5,7 +5,7 @@ vim.keymap.set('n', '<C-e>', '<Cmd>Neotree toggle<CR>', { desc = 'Toogle file ex
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
-  version = '*',
+  version = '3.32',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
@@ -290,10 +290,9 @@ return {
       event_handlers = {
         {
           event = 'neo_tree_popup_input_ready',
-          ---@param args { bufnr: integer, winid: integer }
-          handler = function(args)
+          handler = function()
+            -- enter input popup with normal mode by default.
             vim.cmd 'stopinsert'
-            vim.keymap.set('i', '<esc>', vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
           end,
         },
       },
