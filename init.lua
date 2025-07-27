@@ -97,6 +97,8 @@ vim.g.loaded_netrwPlugin = 1
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+vim.g.tabstop = 4
+vim.g.shifwidth = 4
 
 -- [[ Setting options ]]
 require 'options'
