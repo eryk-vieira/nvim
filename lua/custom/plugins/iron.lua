@@ -84,8 +84,8 @@ return {
       }
 
       -- iron also has a list of commands, see :h iron-commands for all available commands
-      vim.keymap.set('n', '<space>rf', '<cmd>IronFocus<cr>')
-      vim.keymap.set('n', '<space>rh', '<cmd>IronHide<cr>')
+      vim.keymap.set('n', '<space>if', '<cmd>IronFocus<cr>')
+      vim.keymap.set('n', '<space>ih', '<cmd>IronHide<cr>')
     end,
   },
 }
