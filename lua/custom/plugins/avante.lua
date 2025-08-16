@@ -7,14 +7,27 @@ return {
   version = false, -- Never set this value to "*"! Never!
   ---@module 'avante'
   ---@type avante.Config
+  ---
   opts = {
     provider = 'copilot',
     windows = {
       position = 'left',
+      file_selector = {
+        height = 20,
+      },
+      input = {
+        height = 20,
+      },
     },
     mode = 'agentic',
     debug = false,
   },
+  config = function(_, opts)
+    require('avante').setup(opts)
+    -- In light theme, visibility of the diff view is bad.
+    -- https://github.com/yetone/avante.nvim/issues/2491
+    vim.api.nvim_set_hl(0, 'AvanteToBeDeletedWOStrikethrough', { link = 'DiffDelete' })
+  end,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
@@ -24,7 +37,6 @@ return {
     'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
     'ibhagwan/fzf-lua', -- for file_selector provider fzf
     'stevearc/dressing.nvim', -- for input provider dressing
-    'folke/snacks.nvim', -- for input provider snacks
     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
     'zbirenbaum/copilot.lua', -- for providers='copilot'
     {

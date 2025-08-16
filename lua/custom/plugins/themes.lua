@@ -1,5 +1,8 @@
 return {
   {
+    'vimpostor/vim-lumen',
+  },
+  {
     'catppuccin/nvim',
   },
   {
